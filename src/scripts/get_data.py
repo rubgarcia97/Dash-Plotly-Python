@@ -32,10 +32,27 @@ class GetTables():
 
     def drivers(self):
         
-        dataframe = self.__ergast.get_driver_info(season=2006)
-        print(dataframe)
+        data=[]
+        for year in range(1950,dt.date.today().year,1):
+            try:
+                dataframe=self.__ergast.get_driver_info(season=year)
+                data.append(len(dataframe.columns))
+        
+            except:
+                continue
+        
+        print(data)
+
+
+    def results(self):
+
+        dataframe = f1.get_session(2021,1,'Race')
+        print(dataframe.load().results)
+
+
+        
 
 
 
 if __name__=='__main__':
-    GetTables().drivers()
+    GetTables().results()
